@@ -1,0 +1,1 @@
+Python is utilised in the development of the Bookshop Inventory System. The project's goal is to handle books. Fields like book name, quantity, price, category, and discount must be entered in order to add a new book. The Python programming language was used to construct the entire project with Tkinter.
