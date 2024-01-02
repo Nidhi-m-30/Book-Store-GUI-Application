@@ -8,23 +8,33 @@ root.configure(width=1500,height=600,bg='BLACK')
 var=-1
 
 def additem():
-    global var
-    num_lines = 0
-    with open("database_proj", 'r') as f10:
-        for line in f10:
-            num_lines += 1
-    var=num_lines-1
-    e1= entry1.get()
-    e2=entry2.get()
-    e3=entry3.get()
-    e4=entry4.get()
-    e5=entry5.get()
-    f.write('{0} {1} {2} {3} {4}\n'.format(str(e1),e2,e3,str(e4),e5))
-    entry1.delete(0, END)
-    entry2.delete(0, END)
-    entry3.delete(0, END)
-    entry4.delete(0, END)
-    entry5.delete(0, END)
+    try:
+        with open("database_proj", 'a+') as f:
+            e1 = entry1.get()
+            e2 = entry2.get()
+            e3 = entry3.get()
+            e4 = entry4.get()
+            e5 = entry5.get()
+            if not (e1 and e2 and e3 and e4 and e5):
+                messagebox.showerror("Error", "Please fill in all fields.")
+                return
+
+            f.write('{0} {1} {2} {3} {4}\n'.format(str(e1), e2, e3, str(e4), e5))
+            entry1.delete(0, END)
+            entry2.delete(0, END)
+            entry3.delete(0, END)
+            entry4.delete(0, END)
+            entry5.delete(0, END)
+    except Exception as e:
+        messagebox.showerror("Error", f"Error occurred: {e}")
+
+def displaybookdetails(values):
+    entry_list = [entry1, entry2, entry3, entry4, entry5]
+    for entry, value in zip(entry_list, values):
+        entry.delete(0, END)
+        entry.insert(0, str(value))
+
+
 
 def firstitem():
     global var
@@ -84,6 +94,7 @@ def previousitem():
             entry5.insert(0, str(v[4]))
         except:
             messagebox.showinfo("Title", "SORRY!...NO MORE RECORDS")
+
 
 def lastitem():
     global var
@@ -202,3 +213,4 @@ button6.grid(row=3,column=5, padx=40, pady=10)
 button7.grid(row=4,column=4, padx=40, pady=10)
 button8.grid(row=4,column=5, padx=40, pady=10)
 root.mainloop()
+
